@@ -48,7 +48,7 @@ let converter = () => {
           let tx = database.transaction("conversionStore", "readwrite");
           conversionStore = tx.objectStore("conversionStore");
           let currencyPair = `${fromCurrency}_${toCurrency}`;
-          conversionStore.put(conversion );
+          conversionStore.put(conversion);
 
           //  return result;
         })
@@ -79,8 +79,8 @@ let getCurrency = () => {
             // currencyIndex = currencyStore.index('currencyName');
 
             currencyStore.put({
-              "id": currencyValue["id"],
-              "currencyName": currencyValue["currencyName"]
+              id: currencyValue["id"],
+              currencyName: currencyValue["currencyName"]
             });
 
             let currency1 = document.getElementById("fromCurrency");

@@ -1,10 +1,10 @@
-let cacheName = 'v1';
-let cacheFiles = [
-    './',
-    './converter.html',
-    './static/img',
-    './static/styles.css',
-    './converter.js',    
+const cacheName = 'v1';
+const cacheFiles = [
+    '../',
+    '../converter.js',
+    '../static/img',
+    '../static/styles.css',
+    '../converter.html',    
 ]
 
 self.addEventListener('install', e => {
