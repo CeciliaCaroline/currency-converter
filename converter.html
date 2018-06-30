@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="../static/styles.css">
     <title>Currency Converter</title>
-    <script src="converter.js"></script>
+    <!-- <script src="converter.js"></script> -->
 </head>
 <body> 
     <div class="inline">
@@ -16,19 +16,19 @@
         <form>
         <div>
             <label >From</label>
-            <select id="fromCurrency" onclick="currencies()">
-                <option value="" selected></option>
+            <select id="fromCurrency">
+                <option value="" selected ></option>
             </select>
         </div>
 
         <div>
         
             <label > To</label>
-            <select id="toCurrency" onclick="currencies()">
+            <select id="toCurrency" >
                     <option value="" selected></option>
                 </select>
             </div>
-            <button type="button" onclick="converter()" >Convert</button>
+            <button type="button" id="convert">Convert</button>
         </form>
     </br>
     <p id="rate"></p>

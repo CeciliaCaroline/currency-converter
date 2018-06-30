@@ -1,11 +1,10 @@
-let cacheName = 'v2';
+let cacheName = 'v1';
 let cacheFiles = [
     './',
     './converter.html',
     './static/img',
     './static/styles.css',
-    './converter.js',
-    
+    './converter.js',    
 ]
 
 self.addEventListener('install', e => {
@@ -31,31 +30,27 @@ self.addEventListener('activate', e => {
 })
 
 
-self.addEventListener('fetch', e => {
+self.addEventListener('fetch', (e) => {
     e.respondWith(
-        caches.match(e.request).then(response => {
-            if (response){
-                console.log("[Service worker] Found in Cache", e.request.url);
-                return response;
-            }
-
-            let requestClone = e.request.clone();
-
-            fetch(requestClone).then(response => {
+        caches.open(cacheName).then((cache) => {
+            caches.match(e.request).then(response => {
                 if (response){
-                    responseClone = response.clone();
-                    caches.open(cacheName).then(cache => {
+                    console.log("[Service worker] Found in Cache", e.request.url);
+                    return response;
+                }
+        
+                return fetch(e.request).then(response => {
+                    if (response) {
+                        let reponsetClone = response.clone();
                         cache.put(e.request, responseClone);
                         return response;
-                    })
 
-                }
-                console.log('no response from fetch');
-            })
-            .catch(error => {
-                console.log("error caching response");
-            })
 
+                    }
+
+                })
+    
+            })
         })
-    )
-})
+    );
+});
