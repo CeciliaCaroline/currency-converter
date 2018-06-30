@@ -1,6 +1,6 @@
 const cacheName = 'v1';
 const cacheFiles = [
-    '../',
+
     '../converter.js',
     '../static/img/cb.jpeg',
     '../static/styles.css',
