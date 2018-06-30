@@ -3,7 +3,7 @@ let db_request = window.indexedDB.open("myConverterDB", 1);
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
-    .register("./serviceworker.js")
+    .register("./dist/serviceworker.js")
     .then(registration => {
       console.log("service worker has been registered");
     })
