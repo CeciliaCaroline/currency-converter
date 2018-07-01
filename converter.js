@@ -30,7 +30,6 @@ let converter = () => {
   let amount = window.document.getElementById("amount").value;
   let currencyPair = `${fromCurrency}_${toCurrency}`;
 
-
   fetch(
     `https://free.currencyconverterapi.com/api/v5/convert?q=${fromCurrency}_${toCurrency}&compact=ultra`
   )
@@ -39,9 +38,9 @@ let converter = () => {
         .json()
         .then(data => {
           let conversion = data[`${fromCurrency}_${toCurrency}`];
-            conversionDisplay();
+          conversionDisplay();
           dbConversion();
-          
+
           conversionStore.put(conversion, currencyPair);
         })
         .catch(error => {
@@ -49,22 +48,22 @@ let converter = () => {
         });
     })
     .catch(error => {
-        dbConversion();
-        let getPair = conversionStore.get(currencyPair);
-        getPair.onsuccess  = () =>{
+      dbConversion();
+      let getPair = conversionStore.get(currencyPair);
+      getPair.onsuccess = () => {
         let conversion = getPair.result;
         conversionDisplay();
 
-        console.log('pair', getPair.result);
-        };
-        // console.log("No internet, fetch from url");
+        console.log("pair", getPair.result);
+      };
+      // console.log("No internet, fetch from url");
     });
 };
 
 let getCurrency = () => {
-    let options = "";
-    let currency1 = document.getElementById("fromCurrency");
-    let currency2 = document.getElementById("toCurrency");
+  let options = "";
+  let currency1 = document.getElementById("fromCurrency");
+  let currency2 = document.getElementById("toCurrency");
 
   fetch(`https://free.currencyconverterapi.com/api/v5/currencies`)
     .then(response => {
@@ -76,10 +75,9 @@ let getCurrency = () => {
       });
     })
     .catch(error => {
-        dbCurrency();
+      dbCurrency();
       let storedCurrency = currencyStore.getAll();
       dbPopulateOptions(storedCurrency);
-    
     });
 };
 
@@ -102,21 +100,19 @@ let databaseSetUp = () => {
 databaseSetUp();
 
 let dbCurrency = () => {
-    let database = db_request.result;
-    let tx = database.transaction("currencyStore", "readwrite");
-    currencyStore = tx.objectStore("currencyStore");
-  
-  };
+  let database = db_request.result;
+  let tx = database.transaction("currencyStore", "readwrite");
+  currencyStore = tx.objectStore("currencyStore");
+};
 
 let dbConversion = () => {
-    let database = db_request.result;
-    let tx = database.transaction("conversionStore", "readwrite");
-    conversionStore = tx.objectStore("conversionStore");
+  let database = db_request.result;
+  let tx = database.transaction("conversionStore", "readwrite");
+  conversionStore = tx.objectStore("conversionStore");
+};
 
-}
-
-let dbPopulateOptions = (curr) => {
-    Object.keys(curr)
+let dbPopulateOptions = curr => {
+  Object.keys(curr)
     .sort()
     .forEach((key, value) => {
       let currencyValue = curr[key];
@@ -128,12 +124,12 @@ let dbPopulateOptions = (curr) => {
       currency1.innerHTML = options;
       currency2.innerHTML = options;
     });
-
-}
+};
 
 let conversionDisplay = () => {
-    let result = amount * conversion;
-    document.getElementById("rate").innerHTML = `1 ${fromCurrency} = ${conversion} ${toCurrency}`;
-    document.getElementById("result").innerHTML = `${result} ${toCurrency}`;
-
-}
+  let result = amount * conversion;
+  document.getElementById(
+    "rate"
+  ).innerHTML = `1 ${fromCurrency} = ${conversion} ${toCurrency}`;
+  document.getElementById("result").innerHTML = `${result} ${toCurrency}`;
+};
