@@ -78,8 +78,10 @@ let getCurrency = () => {
         dbPopulateOptions(results).forEach((key) => {
           let currencyValue = currency[key];
           // currencyStore.put(currencyValue.currencyName, currencyValue.id);
-          currencyStore.put({"currencyName":currencyValue.currencyName, "id":currencyValue.id});
-
+          currencyStore.put({
+            "id": currencyValue["id"],
+            "currencyName": currencyValue["currencyName"]
+          });
     
           options += `<option value="${currencyValue["id"]}">${
             currencyValue["currencyName"]
@@ -137,8 +139,10 @@ let dbPopulateOptions = currency => {
     .forEach((key, value) => {
       let currencyValue = currency[key];
       // currencyStore.put(currencyValue.currencyName, currencyValue.id);
-      currencyStore.put({"currencyName":currencyValue.currencyName, "id":currencyValue.id});
-
+      currencyStore.put({
+        "id": currencyValue["id"],
+        "currencyName": currencyValue["currencyName"]
+      });
 
       options += `<option value="${currencyValue["id"]}">${
         currencyValue["currencyName"]
