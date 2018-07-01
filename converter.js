@@ -75,10 +75,8 @@ let getCurrency = () => {
     .catch(error => {
       dbCurrency();
       let storedCurrency = currencyStore.getAll();
-      console.log(storedCurrency);
       storedCurrency.onsuccess = () => {
         let results = storedCurrency.result;
-        console.log('results', results);
         results.forEach((key) => {
           let currencyValue = key["currencyName"]; 
           let currencyId = key["id"];
@@ -135,7 +133,6 @@ let dbPopulateOptions = currency => {
     .sort()
     .forEach((key, value) => {
       let currencyValue = currency[key];
-      // currencyStore.put(currencyValue.currencyName, currencyValue.id);
       currencyStore.put({
         "id": currencyValue["id"],
         "currencyName": currencyValue["currencyName"]
