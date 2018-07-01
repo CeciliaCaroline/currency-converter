@@ -75,12 +75,11 @@ let getCurrency = () => {
       storedCurrency.onsuccess = () => {
         let results = storedCurrency.result;
         console.log('results', results);
-        
+
         // dbPopulateOptions(results);
         
       };
       
-      // dbPopulateOptions(storedCurrency);
     });
 };
 
