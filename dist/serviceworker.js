@@ -49,7 +49,7 @@ self.addEventListener("fetch", e => {
 
         return fetch(e.request).then(response => {
           if (response) {
-            let reponseClone = response.clone();
+            let responseClone = response.clone();
             cache.put(e.request, responseClone);
             return response;
           }
