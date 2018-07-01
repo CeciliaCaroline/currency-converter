@@ -75,7 +75,19 @@ let getCurrency = () => {
       storedCurrency.onsuccess = () => {
         let results = storedCurrency.result;
         console.log('results', results);
-        dbPopulateOptions(results);
+        dbPopulateOptions(results).forEach((key) => {
+          let currencyValue = currency[key];
+          // currencyStore.put(currencyValue.currencyName, currencyValue.id);
+          currencyStore.put({currencyName:currencyValue.currencyName, id:currencyValue.id});
+
+    
+          options += `<option value="${currencyValue["id"]}">${
+            currencyValue["currencyName"]
+          }</option>`;
+    
+        });
+        currency1.innerHTML = options;
+        currency2.innerHTML = options;
         
       };
       
