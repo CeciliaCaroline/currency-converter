@@ -1,4 +1,4 @@
-const cacheName = "cachev1";
+// const cacheName = ;
 const cacheFiles = [
   "../converter.js",
   "../static/img/cb.jpeg",
@@ -10,7 +10,7 @@ const cacheFiles = [
 
 self.addEventListener("install", e => {
   e.waitUntil(
-    caches.open(cacheName).then(cache => {
+    caches.open("cachev1").then(cache => {
       return cache.addAll(cacheFiles);
     })
   );
@@ -18,7 +18,7 @@ self.addEventListener("install", e => {
 
 self.addEventListener("fetch", event => {
   event.respondWith(
-    caches.open(cacheName).then((cache) => {
+    caches.open("cachev1").then((cache) => {
       return cache.match(event.request).then((response) => {
         return response || fetch(event.request).then((response) => {
           cache.put(event.request, response.clone());
