@@ -17,32 +17,14 @@ self.addEventListener("install", e => {
   );
 });
 
-// self.addEventListener("activate", event => {
-//   event.waitUntil(
-//     caches.keys().then(cacheNames => {
-//       return Promise.all(
-//         cacheNames
-//           .filter(currentCache => {
-//             if (currentCache != cacheName) {
-//               console.log("removing cached files from", cacheName);
-//               return true;
-//             }
-//           })
-//           .map(currentCache => {
-//               console.log(currentCache);
-//               console.log(caches.delete(currentCache));
-//             return caches.delete(currentCache);
-//           })
-//       );
-//     })
-//   );
-// });
+
 
 self.addEventListener("fetch", e => {
   e.respondWith(
     caches.open(cacheName).then(cache => {
       caches.match(e.request).then(response => {
         if (response) {
+          console.log('response', response);
           console.log("[Service worker] Found in Cache", e.request.url);
           return response;
         }
