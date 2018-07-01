@@ -78,7 +78,7 @@ let getCurrency = () => {
         dbPopulateOptions(results).forEach((key) => {
           let currencyValue = currency[key];
           // currencyStore.put(currencyValue.currencyName, currencyValue.id);
-          currencyStore.put({currencyName:currencyValue.currencyName, id:currencyValue.id});
+          currencyStore.put({"currencyName":currencyValue.currencyName, "id":currencyValue.id});
 
     
           options += `<option value="${currencyValue["id"]}">${
@@ -106,7 +106,7 @@ let databaseSetUp = () => {
     let db = db_request.result;
 
     // Create an objectStore for this database
-    let currencyStore = db.createObjectStore("currencyStore");
+    let currencyStore = db.createObjectStore("currencyStore",  {keyPath: "id"});
     let conversionStore = db.createObjectStore("conversionStore");
   });
 };
@@ -116,7 +116,7 @@ databaseSetUp();
 let dbCurrency = () => {
   let database = db_request.result;
   let tx = database.transaction("currencyStore", "readwrite");
-  currencyStore = tx.objectStore("currencyStore", {keyPath: "id"});
+  currencyStore = tx.objectStore("currencyStore");
 };
 
 let dbConversion = () => {
