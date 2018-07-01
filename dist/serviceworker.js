@@ -17,26 +17,26 @@ self.addEventListener("install", e => {
   );
 });
 
-self.addEventListener("activate", event => {
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames
-          .filter(currentCache => {
-            if (currentCache != cacheName) {
-              console.log("removing cached files from", cacheName);
-              return true;
-            }
-          })
-          .map(currentCache => {
-              console.log(currentCache);
-              console.log(caches.delete(currentCache));
-            return caches.delete(currentCache);
-          })
-      );
-    })
-  );
-});
+// self.addEventListener("activate", event => {
+//   event.waitUntil(
+//     caches.keys().then(cacheNames => {
+//       return Promise.all(
+//         cacheNames
+//           .filter(currentCache => {
+//             if (currentCache != cacheName) {
+//               console.log("removing cached files from", cacheName);
+//               return true;
+//             }
+//           })
+//           .map(currentCache => {
+//               console.log(currentCache);
+//               console.log(caches.delete(currentCache));
+//             return caches.delete(currentCache);
+//           })
+//       );
+//     })
+//   );
+// });
 
 self.addEventListener("fetch", e => {
   e.respondWith(
