@@ -29,6 +29,7 @@ self.addEventListener("activate", e => {
             }
           })
           .map(currentCache => {
+              console.log(currentCache);
               console.log(caches.delete(currentCache));
             return caches.delete(currentCache);
           })
