@@ -1,10 +1,10 @@
 const cacheName = "cachev1";
 const cacheFiles = [
-  "/converter.js",
-  "/static/img/cb.jpeg",
-  "/static/styles.css",
-  "/converter.html",
-  "/dist/index.html"
+  "../converter.js",
+  "../static/img/cb.jpeg",
+  "../static/styles.css",
+  "../converter.html",
+  "../dist/index.html",
 ];
 
 self.addEventListener("install", e => {
@@ -49,7 +49,7 @@ self.addEventListener("fetch", e => {
 
         return fetch(e.request).then(response => {
           if (response) {
-            let reponsetClone = response.clone();
+            let reponseClone = response.clone();
             cache.put(e.request, responseClone);
             return response;
           }
