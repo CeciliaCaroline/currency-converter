@@ -16,11 +16,11 @@ self.addEventListener("install", e => {
 
 self.addEventListener("activate", e => {
   console.log("activate service worker");
-
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
-        cacheNames.filter(currentCache => {
+        cacheNames
+          .filter(currentCache => {
             if (currentCache != cacheName) {
               console.log("removing cached files from", cacheName);
               return true;

@@ -11,7 +11,6 @@ if ("serviceWorker" in navigator) {
       console.log("service worker not rtegistered", error);
     });
 }
-
 document.getElementById("convert").addEventListener("click", () => {
   converter();
 });
