@@ -54,9 +54,7 @@ let converter = () => {
         ).innerHTML = `1 ${fromCurrency} = ${conversion} ${toCurrency}`;
         document.getElementById("result").innerHTML = `${result} ${toCurrency}`;
 
-        console.log("pair", getPair.result);
       };
-      // console.log("No internet, fetch from url");
     });
 };
 
