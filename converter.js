@@ -12,14 +12,6 @@ if ("serviceWorker" in navigator) {
     });
 }
 
-// document.getElementById("fromCurrency").addEventListener("click", () => {
-//   getCurrency();
-// });
-
-// document.getElementById("toCurrency").addEventListener("click", () => {
-//   getCurrency();
-// });
-
 document.getElementById("convert").addEventListener("click", () => {
   converter();
 });
