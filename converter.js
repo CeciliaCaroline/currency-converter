@@ -81,20 +81,18 @@ let getCurrency = () => {
           console.log('value', currencyValue);
           console.log('id', currencyId);
 
-          // let currencyValue = currency[key];
-          // currencyStore.put(currencyValue.currencyName, currencyValue.id);
           // currencyStore.put({
-          //   "id": currencyValue["id"],
-          //   "currencyName": currencyValue["currencyName"]
+          //   "id": currencyValue,
+          //   "currencyName": currencyId
           // });
     
-          // options += `<option value="${currencyValue["id"]}">${
-          //   currencyValue["currencyName"]
-          // }</option>`;
+          options += `<option value="${currencyValue["id"]}">${
+            currencyId
+          }</option>`;
     
         });
-        // currency1.innerHTML = options;
-        // currency2.innerHTML = options;
+        currency1.innerHTML = options;
+        currency2.innerHTML = options;
         
       };
       
