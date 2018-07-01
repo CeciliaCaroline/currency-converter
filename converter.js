@@ -116,7 +116,7 @@ databaseSetUp();
 let dbCurrency = () => {
   let database = db_request.result;
   let tx = database.transaction("currencyStore", "readwrite");
-  currencyStore = tx.objectStore("currencyStore");
+  currencyStore = tx.objectStore("currencyStore", {keyPath: "id"});
 };
 
 let dbConversion = () => {
