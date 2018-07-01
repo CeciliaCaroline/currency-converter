@@ -28,6 +28,8 @@ let converter = () => {
   let fromCurrency = window.document.getElementById("fromCurrency").value;
   let toCurrency = window.document.getElementById("toCurrency").value;
   let amount = window.document.getElementById("amount").value;
+  let currencyPair = `${fromCurrency}_${toCurrency}`;
+
 
   fetch(
     `https://free.currencyconverterapi.com/api/v5/convert?q=${fromCurrency}_${toCurrency}&compact=ultra`
@@ -37,75 +39,52 @@ let converter = () => {
         .json()
         .then(data => {
           let conversion = data[`${fromCurrency}_${toCurrency}`];
-          let result = amount * conversion;
-          document.getElementById(
-            "rate"
-          ).innerHTML = `1 ${fromCurrency} = ${conversion} ${toCurrency}`;
-          document.getElementById(
-            "result"
-          ).innerHTML = `${result} ${toCurrency}`;
-          let database = db_request.result;
-          let tx = database.transaction("conversionStore", "readwrite");
-          conversionStore = tx.objectStore("conversionStore");
-          let currencyPair = `${fromCurrency}_${toCurrency}`;
-          conversionStore.put(conversion);
-
-          //  return result;
+            conversionDisplay();
+          dbConversion();
+          
+          conversionStore.put(conversion, currencyPair);
         })
         .catch(error => {
           console.log("no data in the response", error);
         });
     })
     .catch(error => {
-      document.getElementById("rate").innerHTML = "No Internet";
-      document.getElementById("result").innerHTML = "";
+        dbConversion();
+        let getPair = conversionStore.get(currencyPair);
+        getPair.onsuccess  = () =>{
+        let conversion = getPair.result;
+        conversionDisplay();
 
-      console.log("No internet, fetch from url");
+        console.log('pair', getPair.result);
+        };
+        // console.log("No internet, fetch from url");
     });
 };
 
 let getCurrency = () => {
+    let options = "";
+    let currency1 = document.getElementById("fromCurrency");
+    let currency2 = document.getElementById("toCurrency");
+
   fetch(`https://free.currencyconverterapi.com/api/v5/currencies`)
     .then(response => {
       response.json().then(data => {
         let curr = data.results;
-        Object.keys(curr)
-          .sort()
-          .forEach((key, value) => {
-            let currencyValue = curr[key];
-            let database = db_request.result;
-            let tx = database.transaction("currencyStore", "readwrite");
-            currencyStore = tx.objectStore("currencyStore");
-            // currencyIndex = currencyStore.index('currencyName');
 
-            currencyStore.put({
-              id: currencyValue["id"],
-              currencyName: currencyValue["currencyName"]
-            });
-
-            let currency1 = document.getElementById("fromCurrency");
-            let currency2 = document.getElementById("toCurrency");
-            let option1 = document.createElement("option");
-            let option2 = document.createElement("option");
-
-            option1.text = currencyValue["currencyName"];
-            option1.value = currencyValue["id"];
-            option2.text = currencyValue["currencyName"];
-            option2.value = currencyValue["id"];
-
-            currency1.options.add(option1, -1);
-            currency2.options.add(option2);
-          });
+        dbCurrency();
+        dbPopulateOptions(curr);
       });
     })
     .catch(error => {
-      console.log("error................", error);
+        dbCurrency();
+      let storedCurrency = currencyStore.getAll();
+      dbPopulateOptions(storedCurrency);
+    
     });
 };
 
 let databaseSetUp = () => {
   // db_request = window.indexedDB.open('myConverterDB', 1);
-
   db_request.addEventListener("error", event => {
     alert("could not open DB due to error" + event.target.errorCode);
   });
@@ -115,28 +94,46 @@ let databaseSetUp = () => {
     let db = db_request.result;
 
     // Create an objectStore for this database
-    let currencyStore = db.createObjectStore("currencyStore", {
-      keyPath: "id"
-    });
-    let conversionStore = db.createObjectStore("conversionStore", {
-      autoIncrement: true
-    });
-
-    // let currencyStore = db.createObjectStore("currenciesStore", { autoIncrement: true});
-    // let currencyIndex = currencyStore.createIndex('currencyName','currencyName');
+    let currencyStore = db.createObjectStore("currencyStore");
+    let conversionStore = db.createObjectStore("conversionStore");
   });
 };
 
 databaseSetUp();
 
-let addCurrency = () => {
-  console.log("Successfully created database");
-  let database = db_request.result;
-  let tx = database.transaction("currencyStore", "readwrite");
-  currencyStore = tx.objectStore("currencyStore");
+let dbCurrency = () => {
+    let database = db_request.result;
+    let tx = database.transaction("currencyStore", "readwrite");
+    currencyStore = tx.objectStore("currencyStore");
+  
+  };
 
-  currencyStore.put({
-    id: currencyValue["id"],
-    currencyName: currencyValue["currencyName"]
-  });
-};
+let dbConversion = () => {
+    let database = db_request.result;
+    let tx = database.transaction("conversionStore", "readwrite");
+    conversionStore = tx.objectStore("conversionStore");
+
+}
+
+let dbPopulateOptions = (curr) => {
+    Object.keys(curr)
+    .sort()
+    .forEach((key, value) => {
+      let currencyValue = curr[key];
+      currencyStore.put(currencyValue.currencyName, currencyValue.id);
+
+      options += `<option value="${currencyValue["id"]}">${
+        currencyValue["currencyName"]
+      }</option>`;
+      currency1.innerHTML = options;
+      currency2.innerHTML = options;
+    });
+
+}
+
+let conversionDisplay = () => {
+    let result = amount * conversion;
+    document.getElementById("rate").innerHTML = `1 ${fromCurrency} = ${conversion} ${toCurrency}`;
+    document.getElementById("result").innerHTML = `${result} ${toCurrency}`;
+
+}
