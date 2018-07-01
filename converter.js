@@ -71,29 +71,15 @@ let getCurrency = () => {
     .catch(error => {
       dbCurrency();
       let storedCurrency = currencyStore.getAll();
-      console.log('store',storedCurrency);
+      console.log(storedCurrency);
       storedCurrency.onsuccess = () => {
         let results = storedCurrency.result;
         console.log('results', results);
-        dbPopulateOptions(results).forEach((key) => {
-          let currencyValue = currency[key];
-          // currencyStore.put(currencyValue.currencyName, currencyValue.id);
-          currencyStore.put({
-            "id": currencyValue["id"],
-            "currencyName": currencyValue["currencyName"]
-          });
-    
-          options += `<option value="${currencyValue["id"]}">${
-            currencyValue["currencyName"]
-          }</option>`;
-    
-        });
-        currency1.innerHTML = options;
-        currency2.innerHTML = options;
+        dbPopulateOptions(results);
         
       };
       
-      // dbPopulateOptions(storedCurrency);
+      dbPopulateOptions(storedCurrency);
     });
 };
 
@@ -108,9 +94,7 @@ let databaseSetUp = () => {
     let db = db_request.result;
 
     // Create an objectStore for this database
-    // let currencyStore = db.createObjectStore("currencyStore");
-    let currencyStore = db.createObjectStore("currencyStore", {
-      keyPath: "id"});
+    let currencyStore = db.createObjectStore("currencyStore");
     let conversionStore = db.createObjectStore("conversionStore");
   });
 };
@@ -138,11 +122,7 @@ let dbPopulateOptions = currency => {
     .sort()
     .forEach((key, value) => {
       let currencyValue = currency[key];
-      // currencyStore.put(currencyValue.currencyName, currencyValue.id);
-      currencyStore.put({
-        "id": currencyValue["id"],
-        "currencyName": currencyValue["currencyName"]
-      });
+      currencyStore.put(currencyValue.currencyName, currencyValue.id);
 
       options += `<option value="${currencyValue["id"]}">${
         currencyValue["currencyName"]
