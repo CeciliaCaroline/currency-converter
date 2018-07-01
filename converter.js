@@ -106,7 +106,9 @@ let databaseSetUp = () => {
     let db = db_request.result;
 
     // Create an objectStore for this database
-    let currencyStore = db.createObjectStore("currencyStore",  {keyPath: "id"});
+    // let currencyStore = db.createObjectStore("currencyStore");
+    let currencyStore = db.createObjectStore("currencyStore", {
+      keyPath: "id"});
     let conversionStore = db.createObjectStore("conversionStore");
   });
 };
