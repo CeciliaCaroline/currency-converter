@@ -15,22 +15,32 @@ self.addEventListener("install", e => {
   );
 });
 
-self.addEventListener("fetch", e => {
-  e.respondWith(
-    caches.open(cacheName).then(cache => {
-      caches.match(e.request).then(response => {
-        if (response) {
-          console.log("response", response);
-          console.log("[Service worker] Found in Cache", e.request.url);
-          return response;
-        }
+self.addEventListener("fetch", event => {
+  // e.respondWith(
+  //   caches.open(cacheName).then(cache => {
+  //     caches.match(e.request).then(response => {
+  //       if (response) {
+  //         console.log("response", response);
+  //         console.log("[Service worker] Found in Cache", e.request.url);
+  //         return response;
+  //       }
 
-        return fetch(e.request).then(response => {
-          if (response) {
-            let responseClone = response.clone();
-            cache.put(e.request, responseClone);
-            return response;
-          }
+  //       return fetch(e.request).then(response => {
+  //         if (response) {
+  //           let responseClone = response.clone();
+  //           cache.put(e.request, responseClone);
+  //           return response;
+  //         }
+  //       });
+  //     });
+  //   })
+  // );
+  event.respondWith(
+    caches.open(cacheName).then((cache) => {
+      return cache.match(event.request).then((response) => {
+        return response || fetch(event.request).then((response) => {
+          cache.put(event.request, response.clone());
+          return response;
         });
       });
     })
