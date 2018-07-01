@@ -4,7 +4,6 @@ const cacheFiles = [
   "../static/img/cb.jpeg",
   "../static/styles.css",
   "../converter.html",
-  "../dist/index.html"
 ];
 
 self.addEventListener("install", e => {
