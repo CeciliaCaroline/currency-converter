@@ -12,9 +12,9 @@ if ("serviceWorker" in navigator) {
     });
 }
 
-document.getElementById("fromCurrency").addEventListener("click", () => {
-  getCurrency();
-});
+// document.getElementById("fromCurrency").addEventListener("click", () => {
+//   getCurrency();
+// });
 
 // document.getElementById("toCurrency").addEventListener("click", () => {
 //   getCurrency();
@@ -135,4 +135,6 @@ let dbPopulateOptions = curr => {
     currency1.innerHTML = options;
     currency2.innerHTML = options;
 };
-
+window.onload = () => {
+  getCurrency();
+  }
