@@ -130,7 +130,9 @@ let dbPopulateOptions = curr => {
       options += `<option value="${currencyValue["id"]}">${
         currencyValue["currencyName"]
       }</option>`;
-      currency1.innerHTML = options;
-      currency2.innerHTML = options;
+
     });
+    currency1.innerHTML = options;
+    currency2.innerHTML = options;
 };
+
