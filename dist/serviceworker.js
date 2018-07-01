@@ -1,9 +1,10 @@
 const cacheName = "cachev1";
 const cacheFiles = [
-  "../converter.js",
-  "../static/img/cb.jpeg",
-  "../static/styles.css",
-  "../converter.html",
+  "/converter.js",
+  "/static/img/cb.jpeg",
+  "/static/styles.css",
+  "/converter.html",
+  "/dist/index.html"
 ];
 
 self.addEventListener("install", e => {
