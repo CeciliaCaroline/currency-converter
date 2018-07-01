@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,34 +8,36 @@
     <link rel="stylesheet" type="text/css" href="../static/styles.css">
     <title>Currency Converter</title>
 </head>
-<body> 
+
+<body>
     <div class="inline">
         <h2>Currency Converter</h2>
         <p> Amount to convert</p>
         <input name="Amount" placeholder="Amount" id="amount" type="number">
         <form>
-        <div>
-            <label >From</label>
-            <select id="fromCurrency">
-                <option value="" selected ></option>
-            </select>
-        </div>
+            <div>
+                <label>From</label>
+                <select id="fromCurrency">
+                    <option value="" selected></option>
+                </select>
+            </div>
 
-        <div>
-        
-            <label > To</label>
-            <select id="toCurrency" >
+            <div>
+
+                <label> To</label>
+                <select id="toCurrency">
                     <option value="" selected></option>
                 </select>
             </div>
             <button type="button" id="convert">Convert</button>
         </form>
-    </br>
-    <p id="rate"></p>
-</br>
-    <p id="result"></p>
+        </br>
+        <p id="rate"></p>
+        </br>
+        <p id="result"></p>
 
-      </div>
-      <script type="text/javascript" src="bundle.js"></script>
+    </div>
+    <script type="text/javascript" src="bundle.js"></script>
 </body>
+
 </html>

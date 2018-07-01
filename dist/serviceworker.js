@@ -1,9 +1,10 @@
-const cacheName = "v2";
+const cacheName = "v1";
 const cacheFiles = [
   "../converter.js",
   "../static/img/cb.jpeg",
   "../static/styles.css",
-  "../converter.html"
+  "../converter.html",
+  "../dist/index.html"
 ];
 
 self.addEventListener("install", e => {
@@ -24,7 +25,7 @@ self.addEventListener("activate", e => {
         cacheNames
           .filter(currentCache => {
             if (currentCache != cacheName) {
-            //   console.log("removing cached files from", cacheName);
+              console.log("removing cached files from", cacheName);
               return true;
             }
           })

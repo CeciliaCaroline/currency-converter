@@ -62,10 +62,10 @@ let getCurrency = () => {
   fetch(`https://free.currencyconverterapi.com/api/v5/currencies`)
     .then(response => {
       response.json().then(data => {
-        let curr = data.results;
+        let currency = data.results;
 
         dbCurrency();
-        dbPopulateOptions(curr);
+        dbPopulateOptions(currency);
       });
     })
     .catch(error => {
@@ -105,15 +105,15 @@ let dbConversion = () => {
   conversionStore = tx.objectStore("conversionStore");
 };
 
-let dbPopulateOptions = curr => {
+let dbPopulateOptions = currency => {
     let options = "";
     let currency1 = document.getElementById("fromCurrency");
     let currency2 = document.getElementById("toCurrency");
 
-  Object.keys(curr)
+  Object.keys(currency)
     .sort()
     .forEach((key, value) => {
-      let currencyValue = curr[key];
+      let currencyValue = currency[key];
       currencyStore.put(currencyValue.currencyName, currencyValue.id);
 
       options += `<option value="${currencyValue["id"]}">${
