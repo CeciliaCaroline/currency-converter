@@ -2,7 +2,6 @@ let currencyStore, conversionStore;
 let db_request = window.indexedDB.open("myConverterDB", 1);
 let options = "";
 let currency1 = document.getElementById("fromCurrency");
-console.log('curr1', currency1);
 let currency2 = document.getElementById("toCurrency");
 
 
@@ -84,8 +83,8 @@ let getCurrency = () => {
           let currencyValue = key["currencyName"]; 
           let currencyId = key["id"];
     
-          options += `<option value="${currencyValue["id"]}">${
-            currencyId
+          options += `<option value="${currencyId}">${
+            currencyValue
           }</option>`;
     
         });
