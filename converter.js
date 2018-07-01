@@ -38,7 +38,11 @@ let converter = () => {
         .json()
         .then(data => {
           let conversion = data[`${fromCurrency}_${toCurrency}`];
-          conversionDisplay();
+          let result = amount * conversion;
+          document.getElementById(
+            "rate"
+          ).innerHTML = `1 ${fromCurrency} = ${conversion} ${toCurrency}`;
+          document.getElementById("result").innerHTML = `${result} ${toCurrency}`;
           dbConversion();
 
           conversionStore.put(conversion, currencyPair);
@@ -52,7 +56,11 @@ let converter = () => {
       let getPair = conversionStore.get(currencyPair);
       getPair.onsuccess = () => {
         let conversion = getPair.result;
-        conversionDisplay();
+        let result = amount * conversion;
+        document.getElementById(
+          "rate"
+        ).innerHTML = `1 ${fromCurrency} = ${conversion} ${toCurrency}`;
+        document.getElementById("result").innerHTML = `${result} ${toCurrency}`;
 
         console.log("pair", getPair.result);
       };
@@ -61,9 +69,6 @@ let converter = () => {
 };
 
 let getCurrency = () => {
-  let options = "";
-  let currency1 = document.getElementById("fromCurrency");
-  let currency2 = document.getElementById("toCurrency");
 
   fetch(`https://free.currencyconverterapi.com/api/v5/currencies`)
     .then(response => {
@@ -112,6 +117,10 @@ let dbConversion = () => {
 };
 
 let dbPopulateOptions = curr => {
+    let options = "";
+    let currency1 = document.getElementById("fromCurrency");
+    let currency2 = document.getElementById("toCurrency");
+
   Object.keys(curr)
     .sort()
     .forEach((key, value) => {
@@ -124,12 +133,4 @@ let dbPopulateOptions = curr => {
       currency1.innerHTML = options;
       currency2.innerHTML = options;
     });
-};
-
-let conversionDisplay = () => {
-  let result = amount * conversion;
-  document.getElementById(
-    "rate"
-  ).innerHTML = `1 ${fromCurrency} = ${conversion} ${toCurrency}`;
-  document.getElementById("result").innerHTML = `${result} ${toCurrency}`;
 };
