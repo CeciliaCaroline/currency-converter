@@ -18,7 +18,6 @@ self.addEventListener("install", e => {
 });
 
 self.addEventListener("activate", e => {
-  console.log("activate service worker");
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
@@ -30,6 +29,7 @@ self.addEventListener("activate", e => {
             }
           })
           .map(currentCache => {
+              console.log(caches.delete(currentCache));
             return caches.delete(currentCache);
           })
       );
