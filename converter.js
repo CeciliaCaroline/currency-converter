@@ -134,7 +134,9 @@ let dbPopulateOptions = currency => {
     .sort()
     .forEach((key, value) => {
       let currencyValue = currency[key];
-      currencyStore.put(currencyValue.currencyName, currencyValue.id);
+      // currencyStore.put(currencyValue.currencyName, currencyValue.id);
+      currencyStore.put({"currencyName":currencyValue.currencyName, "id":currencyValue.id});
+
 
       options += `<option value="${currencyValue["id"]}">${
         currencyValue["currencyName"]
