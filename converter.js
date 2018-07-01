@@ -1,5 +1,7 @@
 let currencyStore, conversionStore;
 let db_request = window.indexedDB.open("myConverterDB", 1);
+let options = "";
+
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
@@ -78,8 +80,8 @@ let getCurrency = () => {
         results.forEach((key) => {
           let currencyValue = key["currencyName"] 
           let currencyId = key["id"]
-          console.log('value', currencyValue);
-          console.log('id', currencyId);
+          // console.log('value', currencyValue);
+          // console.log('id', currencyId);
 
           // currencyStore.put({
           //   "id": currencyValue,
@@ -132,7 +134,6 @@ let dbConversion = () => {
 };
 
 let dbPopulateOptions = currency => {
-    let options = "";
     let currency1 = document.getElementById("fromCurrency");
     let currency2 = document.getElementById("toCurrency");
 
