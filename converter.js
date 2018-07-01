@@ -71,15 +71,15 @@ let getCurrency = () => {
     .catch(error => {
       dbCurrency();
       let storedCurrency = currencyStore.getAll();
-      console.log(storedCurrency);
+      console.log('store',storedCurrency);
       storedCurrency.onsuccess = () => {
         let results = storedCurrency.result;
         console.log('results', results);
-        // dbPopulateOptions(results);
+        dbPopulateOptions(results);
         
       };
       
-      dbPopulateOptions(storedCurrency);
+      // dbPopulateOptions(storedCurrency);
     });
 };
 
